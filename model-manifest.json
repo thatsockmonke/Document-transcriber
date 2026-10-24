@@ -1,0 +1,15 @@
+{
+  "model": "Xenova/trocr-small-handwritten",
+  "revision": "2432e24d184b1d964d07ed04f5d9e21d31a59141",
+  "files": {
+    "README.md": "git:7287745cc27b5c9150a0c290dc0e15cc5c6d6569",
+    "config.json": "git:a7817100c3840b680166143285b038b5bae02331",
+    "generation_config.json": "git:18e475bcdda9a14641d2afdf17cc4567aabc9fa4",
+    "preprocessor_config.json": "git:83af4d3da32150c64f279aa4cbed3a6166b77302",
+    "tokenizer_config.json": "git:22dd4ff74bd92b564b2af510e9d35ce7976ce3a4",
+    "special_tokens_map.json": "git:68171d1ff68b731a33d119708476692c094a466b",
+    "tokenizer.json": "git:b32c87bef9bf22a5b1c1fb902a76098d13909dc6",
+    "onnx/encoder_model_quantized.onnx": "2f29edbd925f8a49c9c7d1349895f960cf09d2efdc76fe23f957048d476e0d03",
+    "onnx/decoder_model_merged_quantized.onnx": "51076aa396ab5939c4668db9de901ad51765094b4c05c4c8c1f8ae2012ba1e08"
+  }
+}

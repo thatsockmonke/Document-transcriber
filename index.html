@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#101315" />
+    <meta
+      name="description"
+      content="A private, local-first image transcription workbench. Drag in images, recognize handwriting or printed text, and edit with dictionary assistance."
+    />
+    <title>Transcribe — Image to text workbench</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script type="module" crossorigin src="/Document-transcriber/assets/index-XBJTyr-8.js"></script>
+    <link rel="stylesheet" crossorigin href="/Document-transcriber/assets/index-Crb_e7UE.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Transcribe home"
+        ><span class="brand-mark">▥</span
+        ><span>TRANSCRIBE<small>IMAGE TO TEXT WORKBENCH</small></span></a
+      ><span class="privacy"><i></i> ON YOUR DEVICE</span
+      ><button id="help" class="quiet">HOW IT WORKS ↗</button
+      ><button id="add-images" class="primary">＋ ADD IMAGES</button>
+    </header>
+    <main class="app-shell">
+      <aside class="library">
+        <div class="section-title">
+          YOUR DOCUMENTS <span id="document-count">00</span>
+        </div>
+        <input
+          id="library-search"
+          type="search"
+          placeholder="Search documents…"
+          aria-label="Search documents"
+        />
+        <div
+          id="document-list"
+          class="document-list"
+          role="list"
+          aria-label="Documents"
+        ></div>
+        <div class="library-bottom">
+          <button id="sample" class="wide">TRY A PRINTED SAMPLE ↗</button
+          ><button id="backup" class="quiet wide">BACK UP WORKSPACE</button
+          ><button id="restore" class="quiet wide">RESTORE WORKSPACE</button>
+          <div class="privacy-note">
+            <strong>PRIVATE BY DESIGN</strong>
+            <p>
+              Your images and text stay in this browser. OCR runs on your
+              device.
+            </p>
+            <p>Back up your work before clearing browser data.</p>
+          </div>
+        </div>
+      </aside>
+      <section class="workspace">
+        <div class="workspace-heading">
+          <div>
+            <span class="eyebrow">A PLACE FOR EVERY WORD</span>
+            <h1 id="document-title">Make every word readable.</h1>
+            <p id="document-description">
+              Drop in a scan. Recognize the text. Make it yours.
+            </p>
+          </div>
+          <button id="export" disabled>EXPORT ↗</button>
+        </div>
+        <div class="recognition-bar">
+          <label for="engine">ENGINE</label
+          ><select id="engine">
+            <option value="printed">Printed · Tesseract</option>
+            <option value="handwriting">Handwriting · TrOCR</option></select
+          ><button id="recognize" class="primary" disabled>
+            RECOGNIZE TEXT</button
+          ><span id="region-badge" class="badge">FULL IMAGE</span
+          ><label class="auto-import"
+            ><input type="checkbox" id="auto-recognize" checked /> OCR on
+            import</label
+          ><button id="cancel" class="danger" hidden>STOP</button>
+        </div>
+        <div id="progress-panel" class="progress-panel" hidden>
+          <div>
+            <span id="progress-label" role="status">Preparing recognition…</span
+            ><span id="progress-value"></span>
+          </div>
+          <progress id="progress" max="1" value="0"></progress>
+        </div>
+        <div class="panes">
+          <section class="source-pane">
+            <div class="pane-title">
+              <span>01 / ORIGINAL IMAGE</span><span id="zoom-value">FIT</span>
+            </div>
+            <div class="pane-tools">
+              <button
+                id="select-region"
+                class="quiet"
+                disabled
+                aria-pressed="false"
+              >
+                SELECT LINE / REGION</button
+              ><button id="clear-region" class="quiet" disabled>CLEAR</button
+              ><span class="spacer"></span
+              ><button id="zoom-out" class="quiet" aria-label="Zoom out">
+                −</button
+              ><button id="zoom-in" class="quiet" aria-label="Zoom in">
+                ＋</button
+              ><button id="fit" class="quiet">FIT</button>
+            </div>
+            <div id="image-stage" class="image-stage">
+              <div id="empty-state" class="drop-card">
+                <div class="scan-symbol" aria-hidden="true">▤</div>
+                <span class="eyebrow">YOUR NEXT DOCUMENT STARTS HERE</span>
+                <h2>Drop an image.<br />Keep the words.</h2>
+                <p>
+                  Turn scans, notes, and handwritten lines into text you can
+                  work with.
+                </p>
+                <button id="browse" class="primary">CHOOSE IMAGES ↗</button
+                ><span class="file-hint"
+                  >PNG · JPG · WEBP · BMP · GIF<br />Multiple images welcome ·
+                  up to 20 MB each</span
+                ><button id="empty-sample" class="text-link">
+                  Or explore the printed sample →
+                </button>
+              </div>
+              <div id="image-container" class="image-container" hidden>
+                <canvas
+                  id="image-canvas"
+                  aria-label="Original image. Select line mode to drag a region."
+                  tabindex="0"
+                ></canvas>
+              </div>
+            </div>
+            <div class="pane-footer">
+              <span id="image-info">NO IMAGE SELECTED</span
+              ><span>ORIGINALS STAY IN YOUR BROWSER</span>
+            </div>
+          </section>
+          <section class="editor-pane">
+            <div class="pane-title">
+              <span>02 / TRANSCRIPTION</span
+              ><label
+                ><input id="reviewed" type="checkbox" disabled />
+                Reviewed</label
+              >
+            </div>
+            <div class="pane-tools">
+              <button id="undo" class="quiet" disabled>UNDO</button
+              ><button id="find" class="quiet" disabled>FIND</button
+              ><button id="rules" class="quiet">WRITING RULES</button
+              ><span class="spacer"></span
+              ><button id="copy" class="quiet" disabled>COPY</button>
+            </div>
+            <div id="find-bar" class="find-bar" hidden>
+              <input
+                id="find-query"
+                placeholder="Find in this image’s text"
+                aria-label="Find text"
+              /><button id="find-next">NEXT</button
+              ><button id="close-find" class="quiet" aria-label="Close search">
+                ×
+              </button>
+            </div>
+            <textarea
+              id="editor"
+              spellcheck="true"
+              aria-label="Transcription editor"
+              placeholder="Your transcription starts here.&#10;&#10;Drop an image to run OCR, or type while reading the original.&#10;&#10;Select a word to explore similar spellings.&#10;For handwriting, select one line before recognizing."
+              disabled
+            ></textarea>
+            <div class="pane-footer">
+              <span id="word-count">0 WORDS</span
+              ><span id="save-state">LOCAL AUTOSAVE</span>
+            </div>
+          </section>
+        </div>
+      </section>
+      <aside class="inspector">
+        <div class="pane-title">03 / ASSISTANCE</div>
+        <div class="tabs" role="tablist" aria-label="Assistance">
+          <button role="tab" aria-selected="true" data-tab="dictionary">
+            LEXICON</button
+          ><button role="tab" aria-selected="false" data-tab="notes">
+            NOTES</button
+          ><button role="tab" aria-selected="false" data-tab="history">
+            HISTORY
+          </button>
+        </div>
+        <div class="inspector-content">
+          <section id="tab-dictionary" role="tabpanel">
+            <h2 class="section-title">THE RIGHT WORD, IN CONTEXT</h2>
+            <p class="muted">
+              Select a word in the editor, or look one up below.
+            </p>
+            <form id="lookup-form">
+              <input
+                id="lookup"
+                placeholder="Check a word…"
+                aria-label="Dictionary word"
+              /><button class="quiet" aria-label="Look up word">↵</button>
+            </form>
+            <p id="dictionary-state" class="accent small">
+              LOADING LOCAL DICTIONARY…
+            </p>
+            <label class="check"
+              ><input id="use-context" type="checkbox" checked /> Rank with
+              sentence context</label
+            >
+            <p id="sentence-context" class="context-line">
+              Suggestions use a bundled English language model.
+            </p>
+            <div class="section-title">SIMILAR WORDS · RANKED</div>
+            <div id="suggestions" class="suggestions">
+              <p class="muted">Your alternatives will appear here.</p>
+            </div>
+            <p id="suggestion-reason" class="muted small"></p>
+            <button id="apply-suggestion" class="wide" disabled>
+              REPLACE SELECTED WORD</button
+            ><label class="check"
+              ><input id="learn-corrections" type="checkbox" checked /> Remember
+              approved replacements</label
+            ><label class="check"
+              ><input id="auto-correct" type="checkbox" /> Auto-correct learned
+              typos</label
+            >
+            <div class="divider"></div>
+            <div class="section-title">YOUR VOCABULARY</div>
+            <button id="add-word" class="quiet wide">
+              ＋ ADD WORD TO DICTIONARY
+            </button>
+            <details>
+              <summary>Manage personal words</summary>
+              <select id="personal-words" aria-label="Personal words"></select
+              ><button id="remove-word" class="quiet wide">
+                REMOVE SELECTED WORD
+              </button>
+            </details>
+          </section>
+          <section id="tab-notes" role="tabpanel" hidden>
+            <h2 class="section-title">IMAGE NOTES</h2>
+            <p class="muted">
+              Keep context, uncertain names, and decisions with this image.
+            </p>
+            <textarea
+              id="notes"
+              aria-label="Image notes"
+              placeholder="Possible surname, original abbreviation, [illegible]…"
+              disabled
+            ></textarea>
+          </section>
+          <section id="tab-history" role="tabpanel" hidden>
+            <h2 class="section-title">LOCAL REVISION HISTORY</h2>
+            <p class="muted">
+              Saved versions of this image’s text. Restoring keeps the current
+              version in history.
+            </p>
+            <div id="history-list"></div>
+          </section>
+        </div>
+        <div class="session">
+          <div class="section-title">REVIEW ESTIMATE</div>
+          <strong id="estimate">—</strong>
+          <p class="muted">
+            Word count ÷
+            <input
+              id="review-pace"
+              type="number"
+              min="5"
+              max="300"
+              value="40"
+              aria-label="Review pace in words per minute"
+            />
+            wpm<br />A planning estimate, not OCR accuracy.
+          </p>
+          <button id="model-settings" class="quiet wide">
+            LOCAL MODELS & STORAGE ↗
+          </button>
+        </div>
+      </aside>
+    </main>
+    <footer class="statusbar">
+      <span id="status" role="status"
+        >Ready when you are. Drop an image anywhere to begin.</span
+      ><span>LOCAL PROCESSING / NO ACCOUNT</span>
+    </footer>
+    <div id="drop-overlay" class="drop-overlay" hidden>
+      <div>
+        <span class="scan-symbol">＋</span>
+        <h2>Drop images to transcribe</h2>
+        <p>The files stay on your device.</p>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <dialog id="modal">
+      <div class="dialog-heading">
+        <h2 id="modal-title"></h2>
+        <button id="close-modal" class="quiet" aria-label="Close dialog">
+          ×
+        </button>
+      </div>
+      <div id="modal-body"></div>
+    </dialog>
+    <input
+      id="file-input"
+      type="file"
+      accept="image/png,image/jpeg,image/webp,image/bmp,image/gif"
+      multiple
+      hidden
+    /><input
+      id="restore-input"
+      type="file"
+      accept="application/json,.json"
+      hidden
+    />
+  </body>
+</html>
