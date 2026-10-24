@@ -1,0 +1,31 @@
+{
+  "name": "transcribe-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "prepare:assets": "node scripts/prepare-assets.mjs",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "format": "prettier --write src tests scripts *.js index.html"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "3.8.1",
+    "@tesseract.js-data/eng": "1.0.0",
+    "dictionary-en": "4.0.0",
+    "nspell": "2.1.5",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "1.64.1",
+    "eslint": "^9.39.5",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "vite": "^7.0.0"
+  }
+}

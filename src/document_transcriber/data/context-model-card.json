@@ -1,0 +1,23 @@
+{
+  "name": "English prose context model",
+  "format": "transcriber-context/1",
+  "source": "https://raw.githubusercontent.com/nltk/nltk_data/550b6625bcef1f2abff2ff770a5a0d272c9c6b2a/packages/corpora/gutenberg.zip",
+  "source_sha256": "2d3c3ab548c653944310f37f536443ec85d0a0ad855fcae217a0c9efdce2d611",
+  "documents": [
+    "austen-emma.txt",
+    "austen-persuasion.txt",
+    "austen-sense.txt",
+    "bryant-stories.txt",
+    "burgess-busterbrown.txt",
+    "carroll-alice.txt",
+    "chesterton-ball.txt",
+    "chesterton-brown.txt",
+    "chesterton-thursday.txt",
+    "edgeworth-parents.txt",
+    "melville-moby_dick.txt"
+  ],
+  "tokens": 1050014,
+  "language": "English",
+  "model_sha256": "070cc6cb372b50ad93b90a1e22752a4af779501be457439a73acdfabbf48575b",
+  "limitations": "Public-domain literary English, not a modern semantic model. N-gram rankings can be wrong. No automatic contextual replacements."
+}

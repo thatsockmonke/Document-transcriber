@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "document-transcriber"
+version = "0.3.0"
+description = "A local-first, keyboard-friendly document transcription workbench."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PySide6-Essentials>=6.7,<7",
+  "Pillow>=10,<13",
+  "pytesseract>=0.3.13,<0.4",
+  "PyMuPDF>=1.24,<2",
+  "pyspellchecker>=0.8,<1",
+  "rapidfuzz>=3,<4",
+  "python-docx>=1.1,<2",
+  "numpy>=1.26,<3",
+]
+
+[project.optional-dependencies]
+handwriting = ["torch>=2.6,<3", "transformers>=4.53,<5", "sentencepiece>=0.2,<1"]
+dev = ["pytest>=8,<10", "ruff>=0.12,<1"]
+
+[project.scripts]
+document-transcriber = "document_transcriber.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/document_transcriber"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux' and platform_machine == 'x86_64'" }]
+
