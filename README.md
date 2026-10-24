@@ -1,6 +1,6 @@
 # Document Transcriber
 
-A browser version with drag-and-drop images and local OCR lives in [web/](web/README.md). It is prepared for GitHub Pages; the native desktop app remains below.
+**Live browser app: [Transcribe](https://thatsockmonke.github.io/Document-transcriber/)** — drag in images and recognize text locally. Browser source and instructions are in [web/](web/README.md); the native desktop app remains below.
 
 A local-first desktop transcription workbench for **ChromeOS Crostini and Linux**.
 Charcoal surfaces, orange accents, square controls. No account, web server, or API key.
